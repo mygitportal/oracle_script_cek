@@ -1,0 +1,25 @@
+#Create tuning task:
+
+DECLARE
+l_sql_tune_task_id VARCHAR2(100);
+BEGIN
+l_sql_tune_task_id := DBMS_SQLTUNE.create_tuning_task (
+sql_id => '12xca9smf3hfy',
+scope => DBMS_SQLTUNE.scope_comprehensive,
+time_limit => 500,
+task_name => '12xca9smf3hfy_tuning_task',
+description => 'Tuning task1 for statement 12xca9smf3hfy');
+DBMS_OUTPUT.put_line('l_sql_tune_task_id: ' || l_sql_tune_task_id);
+END;
+/
+
+#Execute tuning task:
+
+EXEC DBMS_SQLTUNE.execute_tuning_task(task_name => '12xca9smf3hfy_tuning_task');
+
+#Get the tuning advisory report
+
+set long 65536
+set longchunksize 65536
+set linesize 100
+select dbms_sqltune.report_tuning_task('12xca9smf3hfy_tuning_task') from dual;
