@@ -3,6 +3,7 @@ set serverout on
 set wrap off
 set pages 300
 set lines 150
+set colsep |
 col file_name for a50
 col name for a50
 col member for a50
